@@ -20,17 +20,21 @@ export const ToDoListComponent = () => {
         If you want to change text, just click on it
       </h4>
       <form className="todo__form" onSubmit={handleSubmit}>
-        <label className="todo__form-label">
-          Write
+        <div className="form__group field">
           <input
             onChange={(e) => dispatch(todoAction.addText(e.target.value))}
             value={todoText}
-            className="todo__form-input"
-            name="todo"
+            className="todo__form-input form__field"
+            name="create"
             type="text"
+            id="create"
             placeholder="notification"
           />
-        </label>
+          <label htmlFor="create" className="form__label">
+            Write
+          </label>
+        </div>
+
         <button
           className="todo__form-button"
           onClick={(e) => dispatch(todoAction.handleClick())}
@@ -38,11 +42,18 @@ export const ToDoListComponent = () => {
         >
           Send
         </button>
-        <input
-          className="todo__form-input"
-          type="text"
-          onChange={(e) => dispatch(todoAction.searchNotes(e.target.value))}
-        />
+        <div className="form__group field">
+          <input
+            placeholder="notification"
+            id="search"
+            className="todo__form-input form__field"
+            type="text"
+            onChange={(e) => dispatch(todoAction.searchNotes(e.target.value))}
+          />
+          <label htmlFor="search" className="form__label">
+            Find something
+          </label>
+        </div>
       </form>
       <div className="todo__list">
         {todoList
@@ -62,15 +73,21 @@ export const ToDoListComponent = () => {
                   {text}
                 </p>
               ) : (
-                <input
-                  className="todo__list-input"
-                  type="text"
-                  onBlur={(e) =>
-                    dispatch(
-                      todoAction.changeTodoText({ id, event: e.target.value })
-                    )
-                  }
-                />
+                <div className="form__group field">
+                  <input
+                    id="change"
+                    className="todo__list-input"
+                    type="text"
+                    onBlur={(e) =>
+                      dispatch(
+                        todoAction.changeTodoText({ id, event: e.target.value })
+                      )
+                    }
+                  />
+                  <label htmlFor="change" className="form__label">
+                    Click to me for changing!
+                  </label>
+                </div>
               )}
               <button
                 className="todo__list-button"
@@ -88,7 +105,7 @@ export const ToDoListComponent = () => {
                     dispatch(todoAction.handleChangeCompleted(id))
                   }
                 />
-                <label for={id}></label>
+                <label htmlFor={id}></label>
               </div>
             </div>
           ))}

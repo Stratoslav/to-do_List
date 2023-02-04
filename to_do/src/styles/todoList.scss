@@ -2,19 +2,30 @@ $border-color: #ff4040;
 $border-color-completed: rgb(71, 156, 37);
 $checkbox-size: 1rem;
 $checkedbox-size: 1.2rem;
-
+$primary: #78d1ac;
+$secondary: #33ff00;
+$white: #fff;
+$gray: #9b9b9b;
 $dark: #15171e;
 $white: mix($dark, white, 20%);
 
 body {
     background: $dark;
     color: $white;
+    font-family: "Poppins", sans-serif;
 }
 
 .todo {
-    max-width: 100%;
+    max-width: 800px;
     margin: 0 auto;
     width: 100%;
+    &__form {
+        display: flex;
+        align-items: end;
+        margin-bottom: 60px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid $gray;
+    }
     &__list {
         &-wrap {
             display: flex;
@@ -39,16 +50,13 @@ body {
         border-radius: 3px;
         font-size: 18px;
         padding: 5px 10px;
+        cursor: pointer;
+        transition: all 0.1s linear;
+        &:hover {
+            background-color: $white;
+            color: $dark;
+        }
     }
-}
-
-.checkbox {
-    margin: 15px;
-}
-
-label {
-    font-family: Helvetica;
-    letter-spacing: 1px;
 }
 
 @keyframes pull {
@@ -84,6 +92,7 @@ label {
 
     &:before,
     &:after {
+        cursor: pointer;
         transition: (all 0.3s ease-in-out);
         content: "";
         position: absolute;
@@ -114,4 +123,62 @@ label {
 
         content: url("https://cdn-icons-png.flaticon.com/16/1828/1828666.png");
     }
+}
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.todo__list-input,
+.todo__form-input {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:placeholder-shown ~ .form__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+    }
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+}
+
+.todo__list-input:focus,
+.todo__form-input:focus {
+    .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $primary;
+        font-weight: 700;
+    }
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary, $secondary);
+    border-image-slice: 1;
 }

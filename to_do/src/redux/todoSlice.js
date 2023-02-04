@@ -1,3 +1,5 @@
+/*eslint arrow-body-style: ["error", "as-needed"]*/
+/*eslint-env es6*/
 import { createSlice } from "@reduxjs/toolkit";
 import swal from "sweetalert";
 
@@ -36,24 +38,20 @@ const todoSlice = createSlice({
     },
 
     deleteTodo(state, { payload }) {
-      let newNote = state.todoList.filter((note) => {
-        return note.id !== payload;
-      });
+      let newNote = state.todoList.filter((note) => note.id !== payload);
       state.todoList = newNote;
     },
 
     handleChangeCompleted(state, { payload }) {
-      let isCompleted = state.todoList.find((note) => {
-        return note.id === payload;
-      });
+      let isCompleted = state.todoList.find((note) => note.id === payload);
       isCompleted.completed = !isCompleted.completed;
     },
 
     isChangedText(state, { payload }) {
       if (payload.event === "P") {
-        const changeText = state.todoList.find((note) => {
-          return note.id === payload.id;
-        });
+        const changeText = state.todoList.find(
+          (note) => note.id === payload.id
+        );
 
         changeText.toggleChangeText = true;
       }
@@ -61,9 +59,9 @@ const todoSlice = createSlice({
 
     changeTodoText(state, { payload }) {
       if (payload.event !== "") {
-        const changeText = state.todoList.find((note) => {
-          return note.id === payload.id;
-        });
+        const changeText = state.todoList.find(
+          (note) => note.id === payload.id
+        );
 
         changeText.toggleChangeText = !changeText.toggleChangeText;
         changeText.text = payload.event;
