@@ -3,12 +3,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import swal from "sweetalert";
 
+let todoList =
+  localStorage.getItem("todoList") !== null
+    ? JSON.parse(localStorage.getItem("todoList"))
+    : [];
+
 let initialState = {
   todoText: "",
-  todoList: [],
+  todoList: todoList,
   completed: false,
   toggleChangeText: false,
   filterTodo: "",
+  quantity: 0,
 };
 
 const todoSlice = createSlice({
@@ -34,16 +40,21 @@ const todoSlice = createSlice({
         state.todoList.push({ ...todo });
         state.todoText = "";
       }
+      localStorage.setItem("todoList", JSON.stringify(state.todoList));
       return;
     },
 
     deleteTodo(state, { payload }) {
       let newNote = state.todoList.filter((note) => note.id !== payload);
+
       state.todoList = newNote;
+      todoList = state.todoList;
+      localStorage.setItem("todoList", JSON.stringify(state.todoList));
     },
 
     handleChangeCompleted(state, { payload }) {
       let isCompleted = state.todoList.find((note) => note.id === payload);
+
       isCompleted.completed = !isCompleted.completed;
     },
 

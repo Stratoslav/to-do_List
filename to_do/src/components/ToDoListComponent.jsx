@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { todoAction } from "../redux/todoSlice";
 import "../styles/todoList.scss";
 export const ToDoListComponent = () => {
   const dispatch = useDispatch();
-  let { todoText, todoList, filterTodo } = useSelector(
+  let { todoText, todoList, filterTodo, quantity } = useSelector(
     (state) => state.todoReducer
   );
 
@@ -15,7 +15,12 @@ export const ToDoListComponent = () => {
 
   return (
     <div className="todo">
-      <h1 className="todo__title">To Do List</h1>
+      <div className=" todo__content">
+        <h1 className="todo__title">To Do List</h1>
+        <div>
+          <p>All todo: {todoList.length}</p>
+        </div>
+      </div>
       <h4 className="todo__title-description">
         If you want to change text, just click on it
       </h4>
