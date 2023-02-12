@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+
 
 import { Todo, todoAction } from "../redux/todoSlice";
 import "../styles/todoList.scss";
-export const ToDoListComponent = () => {
+ const ToDoListComponent = () => {
   const dispatch = useAppDispatch();
   // let { todoText, todoList, filterTodo, quantity } = useSelector(
   //   (state) => state.todoReducer
@@ -13,7 +14,7 @@ export const ToDoListComponent = () => {
     (state) => state.todoReducer
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
   };
 
@@ -46,7 +47,7 @@ export const ToDoListComponent = () => {
 
         <button
           className="todo__form-button"
-          onClick={(e: React.MouseEvent) => dispatch(todoAction.handleClick(e))}
+          onClick={() => dispatch(todoAction.handleClick())}
           type="submit"
         >
           Send
@@ -106,7 +107,7 @@ export const ToDoListComponent = () => {
               </button>
               <div className="checkbox">
                 <input
-                 // id={id}
+                  id={id }
                   className="todo__list-checkbox checkbox-item"
                   type="checkbox"
                   checked={completed}
@@ -114,7 +115,7 @@ export const ToDoListComponent = () => {
                     dispatch(todoAction.handleChangeCompleted(id))
                   }
                 />
-                {/* <label htmlFor={id}></label> */}
+                <label htmlFor={id  }></label>
               </div>
             </div>
           ))}
@@ -122,3 +123,5 @@ export const ToDoListComponent = () => {
     </div>
   );
 };
+
+export default ToDoListComponent

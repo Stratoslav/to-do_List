@@ -7,11 +7,16 @@ import swal from "sweetalert";
 
 
 export type Todo = {
-  id: number,
+  id: any,
           text: string,
           completed:boolean,
           toggleChangeText: boolean,
 }
+let todoListStorage =
+  localStorage.getItem("todoList" ) !== null 
+    ?  JSON.parse(localStorage.getItem("todoList")!)
+    : [];
+
 interface TodoState  {
   todoText:string,
   todoList: Todo[],
@@ -20,10 +25,7 @@ interface TodoState  {
   filterTodo: string,
   quantity: number,
 }
-// let todoList =
-//   localStorage.getItem("todoList" ) !== null 
-//     ?  JSON.parse(localStorage.getItem("todoList"))
-//     : [];
+
 
 let initialState: TodoState = {
   todoText: "",
@@ -42,7 +44,9 @@ const todoSlice = createSlice({
       state.todoText = payload;
     },
 
-    handleClick(state, action: PayloadAction<React.MouseEvent>) {
+    handleClick(state, ) {
+       
+
       if (state.todoText !== "") {
         const id = state.todoList.length
           ?   Number([...state.todoList].pop()!.id) + 1
@@ -58,18 +62,20 @@ const todoSlice = createSlice({
         state.todoText = "";
       }
         
-    
+ 
       
       localStorage.setItem("todoList", JSON.stringify(state.todoList));
       return;
     },
 
     deleteTodo(state, action: PayloadAction<Todo['id']>) {
+        //  state.todoList = todoListStorage ;
       let newNote = state.todoList.filter((note) => note.id !== action.payload);
-
       state.todoList = newNote;
-      //todoList = state.todoList;
+  
+      
       localStorage.setItem("todoList", JSON.stringify(state.todoList));
+  return 
     },
 
     handleChangeCompleted(state,  action: PayloadAction<Todo['id']>) {
