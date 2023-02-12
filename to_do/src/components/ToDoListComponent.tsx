@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
-import { todoAction } from "../redux/todoSlice";
+import { Todo, todoAction } from "../redux/todoSlice";
 import "../styles/todoList.scss";
 export const ToDoListComponent = () => {
-  const dispatch = useDispatch();
-  let { todoText, todoList, filterTodo, quantity } = useSelector(
+  const dispatch = useAppDispatch();
+  // let { todoText, todoList, filterTodo, quantity } = useSelector(
+  //   (state) => state.todoReducer
+  // );
+  const { todoText, todoList, filterTodo } = useAppSelector(
     (state) => state.todoReducer
   );
 
@@ -42,7 +46,7 @@ export const ToDoListComponent = () => {
 
         <button
           className="todo__form-button"
-          onClick={(e) => dispatch(todoAction.handleClick())}
+          onClick={(e: React.MouseEvent) => dispatch(todoAction.handleClick(e))}
           type="submit"
         >
           Send
@@ -63,14 +67,14 @@ export const ToDoListComponent = () => {
       <div className="todo__list">
         {todoList
           .filter((note) => note.text.toLowerCase().includes(filterTodo))
-          .map(({ id, text, completed, toggleChangeText }) => (
+          .map(({ id, text, completed, toggleChangeText }: Todo) => (
             <div className="todo__list-wrap">
               {toggleChangeText === false ? (
                 <p
                   className="todo__list-text"
-                  onClick={(e) =>
+                  onClick={(e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) =>
                     dispatch(
-                      todoAction.isChangedText({ id, event: e.target.nodeName })
+                      todoAction.isChangedText( {id, event: e.currentTarget.nodeName})
                     )
                   }
                   key={id}
@@ -102,7 +106,7 @@ export const ToDoListComponent = () => {
               </button>
               <div className="checkbox">
                 <input
-                  id={id}
+                 // id={id}
                   className="todo__list-checkbox checkbox-item"
                   type="checkbox"
                   checked={completed}
@@ -110,7 +114,7 @@ export const ToDoListComponent = () => {
                     dispatch(todoAction.handleChangeCompleted(id))
                   }
                 />
-                <label htmlFor={id}></label>
+                {/* <label htmlFor={id}></label> */}
               </div>
             </div>
           ))}
